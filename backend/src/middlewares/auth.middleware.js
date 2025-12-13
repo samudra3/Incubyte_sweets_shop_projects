@@ -12,6 +12,7 @@ function authenticate(req, res, next) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // { userId, role }
+
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
@@ -19,6 +20,7 @@ function authenticate(req, res, next) {
 }
 
 function authorizeAdmin(req, res, next) {
+
   if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Admin access required" });
   }
