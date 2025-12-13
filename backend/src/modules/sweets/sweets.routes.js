@@ -1,6 +1,6 @@
 const express = require("express");
 const { createSweet,listSweets,searchSweets,
-      updateSweet,deleteSweet,purchaseSweet} = require("./sweets.controller");
+      updateSweet,deleteSweet,purchaseSweet,restockSweet} = require("./sweets.controller");
 const {
   authenticate,
   authorizeAdmin
@@ -25,5 +25,8 @@ router.delete("/:id", authenticate, authorizeAdmin, deleteSweet);
 
 // Purchase a sweet (authenticated)
 router.post("/:id/purchase", authenticate, purchaseSweet);
+
+// Admin-only: restock a sweet
+router.post("/:id/restock", authenticate, authorizeAdmin, restockSweet);
 
 module.exports = router;
